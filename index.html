@@ -18,22 +18,23 @@
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0; background:var(--bg); color:var(--ink); font-family:"Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial; line-height:1.6;}
+    body{margin:0; background:var(--bg); color:var(--ink); font-family:"Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial; line-height:1.6; display:flex; flex-direction:column; min-height:100vh;}
 
     header{position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(8px); background:rgba(18,18,18,.7); border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{max-width:min(1100px,94vw); margin:auto; display:flex; align-items:center; justify-content:space-between; padding:14px 0}
 
-    .logo{font-weight:800; letter-spacing:.28em; color:var(--ink); text-transform:uppercase; font-size:1.4rem}
+    .logo{font-weight:800; letter-spacing:.28em; color:var(--ink); text-transform:uppercase; font-size:1.4rem; transition:color .2s ease, text-shadow .2s ease; cursor:pointer}
+    .logo:hover{color:var(--accent); text-shadow:0 0 8px rgba(239,161,90,.5)}
     .logo-word{display:inline-block; position:relative}
     .logo-o{color:var(--accent); position:relative}
     .logo-o::after{content:""; position:absolute; width:.45em; height:.45em; background:var(--accent); border-radius:50%; top:-.35em; right:-.05em; box-shadow:0 0 14px rgba(239,161,90,.45)}
 
-    .order-btn{display:inline-flex; align-items:center; gap:10px; font-weight:800; background:linear-gradient(180deg, color-mix(in oklab, var(--accent), white 8%), #D98238); color:#1b1b1b; padding:12px 18px; border-radius:999px; text-decoration:none; box-shadow:0 8px 20px -8px rgba(223,150,84,.55), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .2s ease, box-shadow .2s ease}
-    .order-btn:hover{transform:translateY(-2px); box-shadow:0 14px 26px -10px rgba(223,150,84,.7)}
+    .order-btn{display:inline-flex; align-items:center; gap:10px; font-weight:800; background:linear-gradient(180deg, color-mix(in oklab, var(--accent), white 8%), #D98238); color:#1b1b1b; padding:12px 18px; border-radius:999px; text-decoration:none; box-shadow:0 8px 20px -8px rgba(223,150,84,.55), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .2s ease, box-shadow .2s ease, background .2s ease}
+    .order-btn:hover{transform:translateY(-2px); box-shadow:0 14px 26px -10px rgba(223,150,84,.7), 0 0 12px rgba(239,161,90,.5); background:linear-gradient(180deg, #F0B974, #D98238)}
 
-    .hero{position:relative; min-height:100vh; display:grid; place-items:center; overflow:hidden}
+    .hero{position:relative; min-height:100vh; display:grid; place-items:center; overflow:hidden; flex:1}
     .hero-media{position:absolute; inset:0;}
-    .hero-media img{width:100%; height:100%; object-fit:cover; object-position:center; filter:brightness(.35)} /* Darkened image */
+    .hero-media img{width:100%; height:100%; object-fit:cover; object-position:center; filter:brightness(.35)}
     .hero::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.9))}
 
     .hero-inner{position:relative; z-index:1; text-align:center; padding:0 22px; max-width:900px}
@@ -51,10 +52,16 @@
     .fade-up.d3{animation-delay:.3s}
     @keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
 
+    footer{padding:20px 0; text-align:center; font-size:.9rem; color:var(--muted); border-top:1px solid rgba(255,255,255,.08); margin-top:auto}
+    .socials{margin-top:12px; display:flex; justify-content:center; gap:18px}
+    .socials a{color:var(--muted); text-decoration:none; font-size:1.2rem; transition:color .2s ease, text-shadow .2s ease}
+    .socials a:hover{color:var(--accent); text-shadow:0 0 8px rgba(239,161,90,.5)}
+
     @media (prefers-reduced-motion: reduce){
       .fade-up{animation:none; opacity:1; transform:none}
     }
   </style>
+  <script src="https://kit.fontawesome.com/4b5f9a4c4f.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
@@ -74,12 +81,21 @@
 
       <div class="hero-inner">
         <div class="brandmark fade-up">L<span class="o">O</span>AFLY</div>
-        <h1 class="headline fade-up d2">Freshly baked joy, daily.</h1>
+        <h1 class="headline fade-up d2">by Heather Lynn</h1>
         <p class="subhead fade-up d3">Small-batch breads and baked goods—warm crusts, tender crumbs, and ingredients you can pronounce.</p>
         <a class="order-btn fade-up d3" href="#order" style="margin-top:.4rem">Order Loafly</a>
       </div>
     </section>
   </main>
+
+  <footer>
+    <div>© <span id="year"></span> Loafly. All rights reserved.</div>
+    <div class="socials">
+      <a href="#" aria-label="Loafly on Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Loafly on Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Loafly on Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
 
   <div id="order" style="position:relative; height:1px; width:1px; overflow:hidden"></div>
 
@@ -93,7 +109,8 @@
       inner.style.setProperty('--x', x*30);
       inner.style.setProperty('--y', y*18);
     });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
-
 </html>
